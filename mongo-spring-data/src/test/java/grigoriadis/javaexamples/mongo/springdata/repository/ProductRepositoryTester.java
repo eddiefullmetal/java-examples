@@ -129,4 +129,21 @@ public class ProductRepositoryTester extends AbstractRepositoryTester
         ids = with(allLaptopsOffers).extract(on(Product.class).getId());
         assertEquals(ids, Arrays.asList(product1.getId(), product4.getId()));
     }
+
+    @Test
+    public void testUpdate()
+    {
+        final Product product = new Product("Product1");
+
+        this.productRepository.save(product);
+
+        // Add a tag
+        product.getTags().add("Tag1");
+        this.productRepository.save(product);
+
+        // NOTE It updates all fields
+        final Product retrievedProduct = this.productRepository.findOne(product.getId());
+        assertEquals(retrievedProduct.getTags().size(), product.getTags().size());
+        assertEquals(retrievedProduct.getTags(), product.getTags());
+    }
 }

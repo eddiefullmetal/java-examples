@@ -11,6 +11,7 @@ import org.bson.types.ObjectId;
 import org.joda.time.LocalDate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.testng.annotations.Test;
 
 public class ProductTester extends AbstractModelTester
@@ -130,43 +131,25 @@ public class ProductTester extends AbstractModelTester
         assertEquals(retrievedProduct.getCategory().getParentCategory().getParentCategory().getId(), parentParentCategory.getId());
 
         // Images
-        assertEquals(retrievedProduct.getImages().size(), 2);
-        assertEquals(retrievedProduct.getImages().get(0).getLargeImageUrl(), image1.getLargeImageUrl());
-        assertEquals(retrievedProduct.getImages().get(0).getNormalImageUrl(), image1.getNormalImageUrl());
-        assertEquals(retrievedProduct.getImages().get(0).getThumbnailImageUrl(), image1.getThumbnailImageUrl());
-
-        assertEquals(retrievedProduct.getImages().get(1).getLargeImageUrl(), image2.getLargeImageUrl());
-        assertEquals(retrievedProduct.getImages().get(1).getNormalImageUrl(), image2.getNormalImageUrl());
-        assertEquals(retrievedProduct.getImages().get(1).getThumbnailImageUrl(), image2.getThumbnailImageUrl());
+        assertEquals(retrievedProduct.getImages().size(), product.getImages().size());
+        assertEquals(retrievedProduct.getImages(), product.getImages());
 
         // Tags
-        assertEquals(retrievedProduct.getTags().size(), 3);
-        assertEquals(retrievedProduct.getTags().get(0), "tablet");
-        assertEquals(retrievedProduct.getTags().get(1), "hot");
-        assertEquals(retrievedProduct.getTags().get(2), "featured");
+        assertEquals(retrievedProduct.getTags().size(), product.getTags().size());
+        assertEquals(retrievedProduct.getTags(), product.getTags());
 
         // Attributes
-        assertEquals(retrievedProduct.getAttributes().size(), 2);
-        assertTrue(retrievedProduct.getAttributes().containsKey(key1));
-        assertTrue(retrievedProduct.getAttributes().containsKey(key2));
-        assertEquals(retrievedProduct.getAttributes().get(key1), product.getAttributes().get(key1));
-        assertEquals(retrievedProduct.getAttributes().get(key2), product.getAttributes().get(key2));
+        assertEquals(retrievedProduct.getAttributes().size(), product.getAttributes().size());
+        assertEquals(retrievedProduct.getAttributes(), product.getAttributes());
 
         // Reviews
-        assertEquals(retrievedProduct.getReviews().size(), 2);
+        assertEquals(retrievedProduct.getReviews().size(), product.getReviews().size());
         assertEquals(retrievedProduct.getReviews().get(0).getId(), productReview1.getId());
         assertEquals(retrievedProduct.getReviews().get(1).getId(), productReview2.getId());
 
         // Offers
-        assertEquals(retrievedProduct.getOffers().size(), 2);
-
-        assertEquals(retrievedProduct.getOffers().get(0).getDiscount(), productOffer1.getDiscount());
-        assertEquals(retrievedProduct.getOffers().get(0).getStartDate(), productOffer1.getStartDate());
-        assertEquals(retrievedProduct.getOffers().get(0).getEndDate(), productOffer1.getEndDate());
-
-        assertEquals(retrievedProduct.getOffers().get(1).getDiscount(), productOffer2.getDiscount());
-        assertEquals(retrievedProduct.getOffers().get(1).getStartDate(), productOffer2.getStartDate());
-        assertEquals(retrievedProduct.getOffers().get(1).getEndDate(), productOffer2.getEndDate());
+        assertEquals(retrievedProduct.getOffers().size(), product.getOffers().size());
+        assertEquals(retrievedProduct.getOffers(), product.getOffers());
     }
 
     @Test
@@ -206,5 +189,63 @@ public class ProductTester extends AbstractModelTester
         assertEquals(allFavoriteOrTop.size(), 4);
         ids = with(allFavoriteOrTop).extract(on(Product.class).getId());
         assertEquals(ids, Arrays.asList(product1.getId(), product2.getId(), product3.getId(), product5.getId()));
+    }
+
+    @Test
+    public void testUpdate()
+    {
+        final Product product = new Product("Product1");
+
+        this.mongoOperations.save(product);
+
+        // Add a tag
+        product.getTags().add("Tag1");
+        this.mongoOperations.updateFirst(new Query(Criteria.where("_id").is(product.getId())), new Update().push("tags", "Tag1"), Product.class);
+
+        Product retrievedProduct = this.mongoOperations.findById(product.getId(), Product.class);
+        assertEquals(retrievedProduct.getTags().size(), product.getTags().size());
+        assertEquals(retrievedProduct.getTags(), product.getTags());
+
+        // Add another tag
+        product.getTags().add("Tag2");
+        this.mongoOperations.updateFirst(new Query(Criteria.where("_id").is(product.getId())), new Update().push("tags", "Tag2"), Product.class);
+
+        retrievedProduct = this.mongoOperations.findById(product.getId(), Product.class);
+        assertEquals(retrievedProduct.getTags().size(), product.getTags().size());
+        assertEquals(retrievedProduct.getTags(), product.getTags());
+
+        // Update name
+        product.setName("Product11");
+        this.mongoOperations.updateFirst(new Query(Criteria.where("_id").is(product.getId())), new Update().set("name", product.getName()),
+                Product.class);
+
+        retrievedProduct = this.mongoOperations.findById(product.getId(), Product.class);
+        assertEquals(retrievedProduct.getName(), product.getName());
+
+        // Replace tags
+        product.getTags().clear();
+        product.getTags().addAll(Arrays.asList("Tag5", "Tag6"));
+        this.mongoOperations.updateFirst(new Query(Criteria.where("_id").is(product.getId())), new Update().set("tags", product.getTags()),
+                Product.class);
+
+        retrievedProduct = this.mongoOperations.findById(product.getId(), Product.class);
+        assertEquals(retrievedProduct.getTags().size(), product.getTags().size());
+        assertEquals(retrievedProduct.getTags(), product.getTags());
+
+        // Add ProductOffer
+        final ProductOffer offer1 = new ProductOffer(10, new LocalDate(2012, 05, 05).toDate(), new LocalDate(2012, 05, 07).toDate());
+        product.getOffers().add(offer1);
+        this.mongoOperations.updateFirst(new Query(Criteria.where("_id").is(product.getId())), new Update().push("offers", offer1), Product.class);
+
+        retrievedProduct = this.mongoOperations.findById(product.getId(), Product.class);
+        assertEquals(retrievedProduct.getOffers().size(), product.getOffers().size());
+        assertEquals(retrievedProduct.getOffers(), product.getOffers());
+
+        // Update firstOffer
+        this.mongoOperations.updateFirst(new Query(Criteria.where("_id").is(product.getId())), new Update().set("offers.0.discount", 15),
+                Product.class);
+
+        retrievedProduct = this.mongoOperations.findById(product.getId(), Product.class);
+        assertEquals(retrievedProduct.getOffers().get(0).getDiscount(), 15);
     }
 }
