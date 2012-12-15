@@ -2,6 +2,8 @@ package grigoriadis.javaexamples.mongo.springdata.model;
 
 import static ch.lambdaj.Lambda.*;
 import static ch.lambdaj.collection.LambdaCollections.*;
+import static org.springframework.data.mongodb.core.query.Criteria.*;
+import static org.springframework.data.mongodb.core.query.Query.*;
 import static org.testng.Assert.*;
 
 import java.util.Arrays;
@@ -41,7 +43,7 @@ public class ProductTester extends AbstractModelTester
         this.mongoOperations.insertAll(Arrays.asList(product1, product2, product3, product4));
 
         // Find screens greater than 18
-        final Query findDisplaySizeGreaterThan18 = Query.query(Criteria.where("attributes.Display Size").gt(17));
+        final Query findDisplaySizeGreaterThan18 = query(where("attributes.Display Size").gt(17));
 
         final List<Product> displaySizeGreaterThan18 = this.mongoOperations.find(findDisplaySizeGreaterThan18, Product.class);
         assertEquals(displaySizeGreaterThan18.size(), 2);
@@ -49,7 +51,7 @@ public class ProductTester extends AbstractModelTester
         assertEquals(ids, Arrays.asList(product3.getId(), product4.getId()));
 
         // Find dell or hp
-        final Query findDellOrHp = Query.query(Criteria.where("attributes.Brand").in("Dell", "HP"));
+        final Query findDellOrHp = query(where("attributes.Brand").in("Dell", "HP"));
 
         final List<Product> dellOrHp = this.mongoOperations.find(findDellOrHp, Product.class);
         assertEquals(dellOrHp.size(), 2);
@@ -137,7 +139,7 @@ public class ProductTester extends AbstractModelTester
         // -------------------------------------------------------------------------------
 
         // Retrieve the object
-        final Product retrievedProduct = this.mongoOperations.findOne(Query.query(Criteria.where("name").is("Test1")), Product.class);
+        final Product retrievedProduct = this.mongoOperations.findOne(query(where("name").is("Test1")), Product.class);
 
         // Basic properties
         assertEquals(retrievedProduct.getName(), product.getName());
@@ -188,7 +190,7 @@ public class ProductTester extends AbstractModelTester
         this.mongoOperations.insertAll(Arrays.asList(product1, product2, product3, product4, product5, product6));
 
         // Find all laptops
-        final Query findAllLaptops = new Query(Criteria.where("tags").is("laptop"));
+        final Query findAllLaptops = query(where("tags").is("laptop"));
 
         final List<Product> allLaptops = this.mongoOperations.find(findAllLaptops, Product.class);
         assertEquals(allLaptops.size(), 3);
@@ -196,7 +198,7 @@ public class ProductTester extends AbstractModelTester
         assertEquals(ids, Arrays.asList(product1.getId(), product4.getId(), product6.getId()));
 
         // Find all laptops and offers
-        final Query findAllLaptopsOffers = new Query(Criteria.where("tags").all("laptop", "offer"));
+        final Query findAllLaptopsOffers = query(where("tags").all("laptop", "offer"));
 
         final List<Product> allLaptopsOffers = this.mongoOperations.find(findAllLaptopsOffers, Product.class);
         assertEquals(allLaptopsOffers.size(), 2);
@@ -204,8 +206,7 @@ public class ProductTester extends AbstractModelTester
         assertEquals(ids, Arrays.asList(product1.getId(), product4.getId()));
 
         // Find all favorite or top
-        final Query findAllFavoriteOrTop = new Query(new Criteria().orOperator(Criteria.where("tags").is("favorite"), Criteria.where("tags")
-                .is("top")));
+        final Query findAllFavoriteOrTop = query(new Criteria().orOperator(where("tags").is("favorite"), where("tags").is("top")));
 
         final List<Product> allFavoriteOrTop = this.mongoOperations.find(findAllFavoriteOrTop, Product.class);
         assertEquals(allFavoriteOrTop.size(), 4);
@@ -222,7 +223,7 @@ public class ProductTester extends AbstractModelTester
 
         // Add a tag
         product.getTags().add("Tag1");
-        this.mongoOperations.updateFirst(new Query(Criteria.where("_id").is(product.getId())), new Update().push("tags", "Tag1"), Product.class);
+        this.mongoOperations.updateFirst(query(where("_id").is(product.getId())), new Update().push("tags", "Tag1"), Product.class);
 
         Product retrievedProduct = this.mongoOperations.findById(product.getId(), Product.class);
         assertEquals(retrievedProduct.getTags().size(), product.getTags().size());
@@ -230,7 +231,7 @@ public class ProductTester extends AbstractModelTester
 
         // Add another tag
         product.getTags().add("Tag2");
-        this.mongoOperations.updateFirst(new Query(Criteria.where("_id").is(product.getId())), new Update().push("tags", "Tag2"), Product.class);
+        this.mongoOperations.updateFirst(query(where("_id").is(product.getId())), new Update().push("tags", "Tag2"), Product.class);
 
         retrievedProduct = this.mongoOperations.findById(product.getId(), Product.class);
         assertEquals(retrievedProduct.getTags().size(), product.getTags().size());
@@ -238,8 +239,7 @@ public class ProductTester extends AbstractModelTester
 
         // Update name
         product.setName("Product11");
-        this.mongoOperations.updateFirst(new Query(Criteria.where("_id").is(product.getId())), new Update().set("name", product.getName()),
-                Product.class);
+        this.mongoOperations.updateFirst(query(where("_id").is(product.getId())), new Update().set("name", product.getName()), Product.class);
 
         retrievedProduct = this.mongoOperations.findById(product.getId(), Product.class);
         assertEquals(retrievedProduct.getName(), product.getName());
@@ -247,8 +247,7 @@ public class ProductTester extends AbstractModelTester
         // Replace tags
         product.getTags().clear();
         product.getTags().addAll(Arrays.asList("Tag5", "Tag6"));
-        this.mongoOperations.updateFirst(new Query(Criteria.where("_id").is(product.getId())), new Update().set("tags", product.getTags()),
-                Product.class);
+        this.mongoOperations.updateFirst(query(where("_id").is(product.getId())), new Update().set("tags", product.getTags()), Product.class);
 
         retrievedProduct = this.mongoOperations.findById(product.getId(), Product.class);
         assertEquals(retrievedProduct.getTags().size(), product.getTags().size());
@@ -257,15 +256,14 @@ public class ProductTester extends AbstractModelTester
         // Add ProductOffer
         final ProductOffer offer1 = new ProductOffer(10, new LocalDate(2012, 05, 05).toDate(), new LocalDate(2012, 05, 07).toDate());
         product.getOffers().add(offer1);
-        this.mongoOperations.updateFirst(new Query(Criteria.where("_id").is(product.getId())), new Update().push("offers", offer1), Product.class);
+        this.mongoOperations.updateFirst(query(where("_id").is(product.getId())), new Update().push("offers", offer1), Product.class);
 
         retrievedProduct = this.mongoOperations.findById(product.getId(), Product.class);
         assertEquals(retrievedProduct.getOffers().size(), product.getOffers().size());
         assertEquals(retrievedProduct.getOffers(), product.getOffers());
 
         // Update firstOffer
-        this.mongoOperations.updateFirst(new Query(Criteria.where("_id").is(product.getId())), new Update().set("offers.0.discount", 15),
-                Product.class);
+        this.mongoOperations.updateFirst(query(where("_id").is(product.getId())), new Update().set("offers.0.discount", 15), Product.class);
 
         retrievedProduct = this.mongoOperations.findById(product.getId(), Product.class);
         assertEquals(retrievedProduct.getOffers().get(0).getDiscount(), 15);

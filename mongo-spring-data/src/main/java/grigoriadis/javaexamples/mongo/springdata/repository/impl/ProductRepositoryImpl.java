@@ -1,5 +1,7 @@
 package grigoriadis.javaexamples.mongo.springdata.repository.impl;
 
+import static org.springframework.data.mongodb.core.query.Criteria.*;
+import static org.springframework.data.mongodb.core.query.Query.*;
 import grigoriadis.javaexamples.mongo.springdata.model.Category;
 import grigoriadis.javaexamples.mongo.springdata.model.Product;
 import grigoriadis.javaexamples.mongo.springdata.repository.CategoryRepository;
@@ -13,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 public class ProductRepositoryImpl implements ProductRepositoryCustom
@@ -37,7 +38,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom
 
         final Category category = this.categoryRepository.findByName(name);
 
-        final Query query = new Query(Criteria.where("category.$id").is(category.getId()));
+        final Query query = query(where("category.$id").is(category.getId()));
 
         if (pageable != null)
         {

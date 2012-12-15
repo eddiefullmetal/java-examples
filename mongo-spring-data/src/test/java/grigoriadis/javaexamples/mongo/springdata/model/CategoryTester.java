@@ -1,9 +1,9 @@
 package grigoriadis.javaexamples.mongo.springdata.model;
 
+import static org.springframework.data.mongodb.core.query.Criteria.*;
+import static org.springframework.data.mongodb.core.query.Query.*;
 import static org.testng.Assert.*;
 
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.testng.annotations.Test;
 
 public class CategoryTester extends AbstractModelTester
@@ -30,7 +30,7 @@ public class CategoryTester extends AbstractModelTester
         // -------------------------------------------------------------------------------
 
         // Retrieve the object
-        final Category retrievedCategory = this.mongoOperations.findOne(Query.query(Criteria.where("name").is(category4.getName())), Category.class);
+        final Category retrievedCategory = this.mongoOperations.findOne(query(where("name").is(category4.getName())), Category.class);
 
         assertEquals(retrievedCategory.getId(), category4.getId());
 
