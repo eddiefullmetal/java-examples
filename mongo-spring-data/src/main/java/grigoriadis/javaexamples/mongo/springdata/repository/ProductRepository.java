@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
-public interface IProductRepository extends MongoRepository<Product, ObjectId>
+public interface ProductRepository extends MongoRepository<Product, ObjectId>, ProductRepositoryCustom
 {
     List<Product> findByDescriptionLike(String description, Pageable pageable);
 

@@ -5,7 +5,9 @@ import static ch.lambdaj.collection.LambdaCollections.*;
 import static org.testng.Assert.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.bson.types.ObjectId;
 import org.joda.time.LocalDate;
@@ -53,6 +55,26 @@ public class ProductTester extends AbstractModelTester
         assertEquals(dellOrHp.size(), 2);
         ids = with(dellOrHp).extract(on(Product.class).getId());
         assertEquals(ids, Arrays.asList(product1.getId(), product4.getId()));
+    }
+
+    @Test
+    public void testComplexAttribute()
+    {
+        final Product product = new Product("Product1");
+
+        final Map<String, Object> subAttributes = new HashMap<>();
+        subAttributes.put("Brand", "Intel");
+        subAttributes.put("GHz", 2.3);
+        subAttributes.put("Model", "i5");
+
+        product.getAttributes().put("CPU", subAttributes);
+        product.getAttributes().put("Brand", "Toshiba");
+
+        this.mongoOperations.save(product);
+
+        final Product retrievedProduct = this.mongoOperations.findById(product.getId(), Product.class);
+        assertEquals(retrievedProduct.getAttributes().size(), product.getAttributes().size());
+        assertEquals(retrievedProduct.getAttributes(), product.getAttributes());
     }
 
     @Test

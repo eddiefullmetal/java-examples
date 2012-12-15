@@ -3,6 +3,7 @@ package grigoriadis.javaexamples.mongo.springdata.repository;
 import static ch.lambdaj.Lambda.*;
 import static ch.lambdaj.collection.LambdaCollections.*;
 import static org.testng.Assert.*;
+import grigoriadis.javaexamples.mongo.springdata.model.Category;
 import grigoriadis.javaexamples.mongo.springdata.model.Product;
 import grigoriadis.javaexamples.mongo.springdata.model.ProductOffer;
 
@@ -18,10 +19,30 @@ import org.testng.annotations.Test;
 public class ProductRepositoryTester extends AbstractRepositoryTester
 {
     @Autowired
-    private ICategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     @Autowired
-    private IProductRepository productRepository;
+    private ProductRepository productRepository;
+
+    @Test
+    public void testFindByCategoryName()
+    {
+        final Category category = new Category("Laptop");
+        final Category category1 = new Category("Cat");
+
+        this.categoryRepository.save(Arrays.asList(category, category1));
+
+        final Product product1 = new Product("Product1", category);
+        final Product product2 = new Product("Product2", category1);
+        final Product product3 = new Product("Product3", category);
+
+        this.productRepository.save(Arrays.asList(product1, product2, product3));
+
+        final List<Product> retrievedProducts = this.productRepository.findByCategoryName(category.getName(), null);
+        assertEquals(retrievedProducts.size(), 2);
+        final List<ObjectId> ids = with(retrievedProducts).extract(on(Product.class).getId());
+        assertEquals(ids, Arrays.asList(product1.getId(), product3.getId()));
+    }
 
     @Test
     public void testFindByDescriptionLike()
