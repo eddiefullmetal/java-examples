@@ -11,9 +11,6 @@
         http://www.springframework.org/schema/data/mongo
         http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
 
-
-	<context:component-scan base-package="grigoriadis.javaexamples.mongo.springdata" />
-	
 	<mongo:repositories base-package="grigoriadis.javaexamples.mongo.springdata.repository" />
 	
 	<mongo:mongo host="localhost" port="27017" write-concern="SAFE" />
