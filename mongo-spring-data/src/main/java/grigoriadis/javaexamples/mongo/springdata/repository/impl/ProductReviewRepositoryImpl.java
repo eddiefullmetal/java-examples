@@ -22,11 +22,8 @@ public class ProductReviewRepositoryImpl implements ProductReviewRepositoryCusto
     {
         final String collectionName = this.mongoOperations.getCollectionName(ProductReview.class);
 
-        final String classpath = "classpath:" + this.getClass().getPackage().getName().replace('.', '/') + "/" + this.getClass().getSimpleName()
-                + "/";
-
-        final MapReduceResults<ProductRating> mapReduceResults = this.mongoOperations.mapReduce(collectionName, classpath
-                + "calculateProductRatings.map.js", classpath + "calculateProductRatings.reduce.js", ProductRating.class);
+        final MapReduceResults<ProductRating> mapReduceResults = this.mongoOperations.mapReduce(collectionName,
+                "classpath:calculateProductRatings.map.js", "classpath:calculateProductRatings.reduce.js", ProductRating.class);
 
         final List<ProductRating> productRatings = new ArrayList<>();
         final Iterator<ProductRating> iterator = mapReduceResults.iterator();
