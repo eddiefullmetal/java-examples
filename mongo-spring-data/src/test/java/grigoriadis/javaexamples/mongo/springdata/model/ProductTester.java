@@ -83,11 +83,6 @@ public class ProductTester extends AbstractModelTester
     public void testInsert()
     {
         // -------------------------InitializeData-------------------------------
-        final ProductReview productReview1 = new ProductReview(5, "Very nice", "dude5");
-        final ProductReview productReview2 = new ProductReview(3, "Super!!!", "dude43");
-
-        this.mongoOperations.insertAll(Arrays.asList(productReview1, productReview2));
-
         final Product product = new Product();
 
         // Basic Properties
@@ -122,10 +117,6 @@ public class ProductTester extends AbstractModelTester
         final String key2 = "OS";
         product.getAttributes().put(key1, 14.1);
         product.getAttributes().put(key2, "Android");
-
-        // Reviews
-        product.getReviews().add(productReview1);
-        product.getReviews().add(productReview2);
 
         // Offers
         final ProductOffer productOffer1 = new ProductOffer(10, new LocalDate(2012, 05, 25).toDate(), new LocalDate(2012, 05, 30).toDate());
@@ -165,11 +156,6 @@ public class ProductTester extends AbstractModelTester
         // Attributes
         assertEquals(retrievedProduct.getAttributes().size(), product.getAttributes().size());
         assertEquals(retrievedProduct.getAttributes(), product.getAttributes());
-
-        // Reviews
-        assertEquals(retrievedProduct.getReviews().size(), product.getReviews().size());
-        assertEquals(retrievedProduct.getReviews().get(0).getId(), productReview1.getId());
-        assertEquals(retrievedProduct.getReviews().get(1).getId(), productReview2.getId());
 
         // Offers
         assertEquals(retrievedProduct.getOffers().size(), product.getOffers().size());

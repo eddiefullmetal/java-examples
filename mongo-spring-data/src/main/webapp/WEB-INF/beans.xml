@@ -18,15 +18,18 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="WEB-INF/mongo.properties" />
 	</bean>
-	
+
 	<mvc:annotation-driven />
 
 	<context:component-scan base-package="grigoriadis.javaexamples.mongo.springdata" />
-	
-	<mongo:repositories base-package="grigoriadis.javaexamples.mongo.springdata.repository" />
 
-	<mongo:mongo host="${db.host}" port="${db.port}" write-concern="SAFE"/>
-	<mongo:db-factory dbname="database" />
+	<mongo:repositories
+		base-package="grigoriadis.javaexamples.mongo.springdata.repository" />
+
+	<mongo:mongo host="${db.host}" port="${db.port}"
+		write-concern="SAFE" />
+		
+	<mongo:db-factory dbname="${db.name}" />
 
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />

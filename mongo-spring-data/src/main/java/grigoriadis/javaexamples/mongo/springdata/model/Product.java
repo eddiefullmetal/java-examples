@@ -34,9 +34,6 @@ public class Product
 
     private List<ProductOffer> offers;
 
-    @DBRef
-    private List<ProductReview> reviews;
-
     private List<String> tags;
 
     public Product()
@@ -44,7 +41,6 @@ public class Product
         this.tags = new ArrayList<>();
         this.images = new ArrayList<>();
         this.attributes = new HashMap<>();
-        this.reviews = new ArrayList<>();
         this.offers = new ArrayList<>();
     }
 
@@ -110,11 +106,6 @@ public class Product
         return this.offers;
     }
 
-    public List<ProductReview> getReviews()
-    {
-        return this.reviews;
-    }
-
     public List<String> getTags()
     {
         return this.tags;
@@ -153,11 +144,6 @@ public class Product
     public void setOffers(final List<ProductOffer> offers)
     {
         this.offers = offers;
-    }
-
-    public void setReviews(final List<ProductReview> reviews)
-    {
-        this.reviews = reviews;
     }
 
     public void setTags(final List<String> tags)

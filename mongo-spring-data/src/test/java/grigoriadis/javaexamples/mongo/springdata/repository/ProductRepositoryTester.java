@@ -24,6 +24,9 @@ public class ProductRepositoryTester extends AbstractRepositoryTester
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private ProductReviewRepository productReviewRepository;
+
     @Test
     public void testFindByCategory()
     {

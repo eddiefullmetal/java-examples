@@ -3,6 +3,7 @@ package grigoriadis.javaexamples.mongo.springdata.model;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -11,6 +12,9 @@ public class ProductReview
 {
     @Id
     private ObjectId id;
+
+    @DBRef
+    private Product product;
 
     private int rating;
 
@@ -22,9 +26,10 @@ public class ProductReview
     {
     }
 
-    public ProductReview(final int rating, final String reviewText, final String userName)
+    public ProductReview(final Product product, final int rating, final String reviewText, final String userName)
     {
         super();
+        this.product = product;
         this.rating = rating;
         this.reviewText = reviewText;
         this.userName = userName;
@@ -33,6 +38,11 @@ public class ProductReview
     public ObjectId getId()
     {
         return this.id;
+    }
+
+    public Product getProduct()
+    {
+        return this.product;
     }
 
     public int getRating()
@@ -53,6 +63,11 @@ public class ProductReview
     public void setId(final ObjectId id)
     {
         this.id = id;
+    }
+
+    public void setProduct(final Product product)
+    {
+        this.product = product;
     }
 
     public void setRating(final int rating)

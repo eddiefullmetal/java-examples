@@ -12,7 +12,7 @@
         http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
 
 	<mongo:mongo host="localhost" port="27017" write-concern="SAFE" />
-	<mongo:db-factory dbname="database" />
+	<mongo:db-factory dbname="samples" />
 
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
