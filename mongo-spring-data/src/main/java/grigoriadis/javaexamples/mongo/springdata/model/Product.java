@@ -14,7 +14,18 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * //TODO Add more description
+ * Class that represents a Product, it has the following properties:
+ * <ul>
+ * <li>{@link #id}</li>
+ * <li>{@link #name}</li>
+ * <li>{@link #description}</li>
+ * <li>{@link #category}</li>
+ * <li>{@link #tags}</li>
+ * <li>{@link #offers}</li>
+ * <li>{@link #attributes}</li>
+ * <li>{@link #images}</li>
+ * </ul>
+ * 
  * <p>
  * The Product model contains the following "mappings" (there is no mapping in mongo db):
  * <ul>
@@ -42,7 +53,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * </li>
  * </ul>
  * </p>
- * 
  * 
  * @see ProductTester
  * @author eddiefullmetal
@@ -86,6 +96,11 @@ public class Product
      * <a target="_blank" href="http://docs.mongodb.org/manual/applications/database-references/#dbref">DBRef</a> 
      * instead of an embedded object. Also when the {@link #getCategory()} is called 
      * a query to the database will be made automatically in order to retrieve the {@link Category}.
+     * </p>
+     * 
+     * <p>
+     * Note: Since the {@link Category} represents a path it should be more convenient to implement it as a 
+     * <a target="_blank" href="http://docs.mongodb.org/manual/tutorial/model-tree-structures-with-materialized-paths/">Model Tree Structure with Materialized Paths</a>
      * </p>
      */
     @DBRef

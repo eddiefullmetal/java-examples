@@ -2,7 +2,7 @@
  * <h1>Mongo Spring Data example</h1>
  * 
  * <p>
- * The main goal of this example is to display some of <a href="http://www.mongodb.org/">mongodb</a> capabilities.
+ * The main goal of this example is to display some of <a href="http://www.mongodb.org/">mongodb</a> capabilities using the spring-data framework.
  * </p> 
  * 
  * 

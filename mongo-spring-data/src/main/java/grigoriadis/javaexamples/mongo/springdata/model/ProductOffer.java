@@ -2,26 +2,61 @@ package grigoriadis.javaexamples.mongo.springdata.model;
 
 import java.util.Date;
 
+/**
+ * Class that represent a product offer. 
+ * An offer has a period that is active ({@link #startDate}, {@link #endDate}) and a discount.
+ * 
+ * <p>
+ * Since this class is used as an embedded object in the {@link Product} 
+ * no attributes are required in order to store a {@link ProductOffer} object.
+ * </p>
+ * 
+ * @author eddiefullmetal
+ *
+ */
 public class ProductOffer
 {
+    /**
+     * The discount of the offer.
+     */
     private int discount;
 
+    /**
+     * The start date that the offer is valid.
+     */
     private Date endDate;
 
+    /**
+     * The end date that the offer is valid.
+     */
     private Date startDate;
 
+    /**
+     * Constructor.
+     */
     public ProductOffer()
     {
     }
 
+    /**
+     * Constructor.
+     * 
+     * @param discount The {@link #discount}
+     * @param startDate The {@link #startDate}
+     * @param endDate The {@link #endDate}
+     */
     public ProductOffer(final int discount, final Date startDate, final Date endDate)
     {
-        super();
         this.discount = discount;
         this.endDate = endDate;
         this.startDate = startDate;
     }
 
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * In order for two {@link ProductOffer} objects to be "equal" the 
+     * {@link #discount}, {@link #startDate} and {@link #endDate} fields must be equal
+     */
     @Override
     public boolean equals(final Object obj)
     {
@@ -67,21 +102,33 @@ public class ProductOffer
         return true;
     }
 
+    /**
+     * @return the {@link #discount}
+     */
     public int getDiscount()
     {
         return this.discount;
     }
 
+    /**
+     * @return the {@link #endDate}
+     */
     public Date getEndDate()
     {
         return this.endDate;
     }
 
+    /**
+     * @return the {@link #startDate}
+     */
     public Date getStartDate()
     {
         return this.startDate;
     }
 
+    /**
+     * @see #equals(Object)
+     */
     @Override
     public int hashCode()
     {
@@ -93,19 +140,27 @@ public class ProductOffer
         return result;
     }
 
+    /**
+     * @param discount the {@link #discount} to set
+     */
     public void setDiscount(final int discount)
     {
         this.discount = discount;
     }
 
+    /**
+     * @param endDate the {@link #endDate} to set
+     */
     public void setEndDate(final Date endDate)
     {
         this.endDate = endDate;
     }
 
+    /**
+     * @param startDate the {@link #startDate} to set
+     */
     public void setStartDate(final Date startDate)
     {
         this.startDate = startDate;
     }
-
 }

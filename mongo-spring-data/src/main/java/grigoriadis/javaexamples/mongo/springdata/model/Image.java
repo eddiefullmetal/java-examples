@@ -1,17 +1,53 @@
 package grigoriadis.javaexamples.mongo.springdata.model;
 
+/**
+ * Represents one product image in 3 different sizes:
+ * <ul>
+ * <li>Thumbnail</li>
+ * <li>Normal</li>
+ * <li>Large</li>
+ * </ul>
+ * 
+ * <p>
+ * Since this class is used as an embedded object in the {@link Product} 
+ * no attributes are required in order to store an {@link Image} object.
+ * </p>
+ * 
+ * @see Product
+ * @author eddiefullmetal
+ *
+ */
 public class Image
 {
+    /**
+     * The url for the large size product image
+     */
     private String largeImageUrl;
 
+    /**
+     * The url for the normal size product image
+     */
     private String normalImageUrl;
 
+    /**
+     * The url for the thumbnail image
+     */
     private String thumbnailImageUrl;
 
+    /**
+     * Constructor.
+     */
     public Image()
     {
     }
 
+    /**
+     * Constructor.
+     * 
+     * @param largeImageUrl The {@link #largeImageUrl}
+     * @param normalImageUrl The {@link #normalImageUrl}
+     * @param thumbnailImageUrl The {@link #thumbnailImageUrl}
+     */
     public Image(final String largeImageUrl, final String normalImageUrl, final String thumbnailImageUrl)
     {
         super();
@@ -20,6 +56,11 @@ public class Image
         this.thumbnailImageUrl = thumbnailImageUrl;
     }
 
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * In order for two {@link Image} objects to be "equal" the 
+     * {@link #largeImageUrl}, {@link #normalImageUrl} and {@link #thumbnailImageUrl} fields must be equal
+     */
     @Override
     public boolean equals(final Object obj)
     {
@@ -72,21 +113,33 @@ public class Image
         return true;
     }
 
+    /**
+     * @return the {@link #largeImageUrl}
+     */
     public String getLargeImageUrl()
     {
         return this.largeImageUrl;
     }
 
+    /**
+     * @return the {@link #normalImageUrl}
+     */
     public String getNormalImageUrl()
     {
         return this.normalImageUrl;
     }
 
+    /**
+     * @return the {@link #thumbnailImageUrl}
+     */
     public String getThumbnailImageUrl()
     {
         return this.thumbnailImageUrl;
     }
 
+    /**
+     * @see #equals(Object)
+     */
     @Override
     public int hashCode()
     {
@@ -98,16 +151,25 @@ public class Image
         return result;
     }
 
+    /**
+     * @param largeImageUrl the {@link #largeImageUrl} to set
+     */
     public void setLargeImageUrl(final String largeImageUrl)
     {
         this.largeImageUrl = largeImageUrl;
     }
 
+    /**
+     * @param normalImageUrl the {@link #normalImageUrl} to set
+     */
     public void setNormalImageUrl(final String normalImageUrl)
     {
         this.normalImageUrl = normalImageUrl;
     }
 
+    /**
+     * @param thumbnailImageUrl the {@link #thumbnailImageUrl} to set
+     */
     public void setThumbnailImageUrl(final String thumbnailImageUrl)
     {
         this.thumbnailImageUrl = thumbnailImageUrl;
