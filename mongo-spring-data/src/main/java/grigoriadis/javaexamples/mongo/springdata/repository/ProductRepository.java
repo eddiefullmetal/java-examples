@@ -15,6 +15,7 @@ import org.springframework.data.mongodb.repository.Query;
 import com.mongodb.DBCursor;
 
 /**
+ * A {@link MongoRepository} for the {@link Product} model.
  * <p>
  * This repository uses all three possible variations for query definition:
  * <ul>
@@ -37,6 +38,7 @@ import com.mongodb.DBCursor;
  * See <a target="_blank" href="http://static.springsource.org/spring-data/data-mongodb/docs/current/reference/html/#repositories">Chapter 4. Repositories</a>.
  * 
  * 
+ * @see CategoryRepository
  * @author eddiefullmetal
  *
  */

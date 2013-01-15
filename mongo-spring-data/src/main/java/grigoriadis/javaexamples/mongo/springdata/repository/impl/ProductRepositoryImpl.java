@@ -7,6 +7,7 @@ import grigoriadis.javaexamples.mongo.springdata.model.Product;
 import grigoriadis.javaexamples.mongo.springdata.repository.CategoryRepository;
 import grigoriadis.javaexamples.mongo.springdata.repository.ProductRepositoryCustom;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -17,6 +18,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
 
+/**
+ * Implementation of the {@link ProductRepositoryCustom}
+ * 
+ * @author eddiefullmetal
+ *
+ */
 public class ProductRepositoryImpl implements ProductRepositoryCustom
 {
     private static final Logger logger = LoggerFactory.getLogger(ProductRepositoryImpl.class);
@@ -37,6 +44,11 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom
         }
 
         final Category category = this.categoryRepository.findByName(name);
+
+        if (category == null)
+        {
+            return new ArrayList<>();
+        }
 
         final Query query = query(where("category.$id").is(category.getId()));
 

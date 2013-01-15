@@ -5,9 +5,18 @@ import grigoriadis.javaexamples.mongo.springdata.repository.ProductReviewReposit
 /**
  * This class represents the average rating of a product.
  * 
+ * <p>
  * This class is not used to store any information in the database. It is used in order to map 
  * the <a target="_blank" href="http://docs.mongodb.org/manual/applications/map-reduce/">map-reduce</a> result.
+ * </p>
  * 
+ * <p>
+ * In order to map a map-reduce result the model must contain two fields 
+ * <ul>
+ *  <li>id ({@link #id})</li>
+ *  <li>value ({@link #value})</li>
+ * </ul>
+ * </p>
  * 
  * @see ProductReviewRepositoryCustom#calculateProductRatings()
  * @author eddiefullmetal

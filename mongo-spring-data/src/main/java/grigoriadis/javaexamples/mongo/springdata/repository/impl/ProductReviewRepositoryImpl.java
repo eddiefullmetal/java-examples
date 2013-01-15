@@ -12,6 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.mapreduce.MapReduceResults;
 
+/**
+ * Implementation of the {@link ProductReviewRepositoryCustom}
+ * 
+ * @author eddiefullmetal
+ *
+ */
 public class ProductReviewRepositoryImpl implements ProductReviewRepositoryCustom
 {
     @Autowired

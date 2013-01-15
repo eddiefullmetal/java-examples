@@ -54,7 +54,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * </ul>
  * </p>
  * 
- * @see ProductTester
  * @author eddiefullmetal
  * 
  */
