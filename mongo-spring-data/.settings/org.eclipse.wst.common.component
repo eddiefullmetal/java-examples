@@ -2,7 +2,6 @@
     <wb-module deploy-name="mongo-spring-data">
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF" source-path="/src/main/webapp/WEB-INF"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <property name="context-root" value="mongo-spring-data"/>
         <property name="java-output-path" value="/mongo-spring-data/target/classes"/>
