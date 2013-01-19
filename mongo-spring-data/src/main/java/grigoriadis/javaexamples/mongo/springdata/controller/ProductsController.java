@@ -20,8 +20,19 @@ public class ProductsController
 {
     private static final Logger logger = LoggerFactory.getLogger(ProductsController.class);
 
+    private final ProductRepository productRepository;
+
     @Autowired
-    private ProductRepository productRepository;
+    public ProductsController(final ProductRepository productRepository)
+    {
+        if (productRepository == null)
+        {
+            logger.error("null productRepository");
+            throw new IllegalArgumentException("null productRepository");
+        }
+
+        this.productRepository = productRepository;
+    }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseBody
