@@ -9,20 +9,23 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "productTags", schema = "eshop")
-public class ProductTag
+@Table(name = "productAttributes", schema = "eshop")
+public class ProductAttribute
 {
     @Id
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @Column(nullable = false, length = 45)
+    private String name;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "productId")
     private Product product;
 
-    @Column(name = "tag", nullable = false, length = 45)
-    private String tag;
+    @Column(nullable = false, length = 100)
+    private String value;
 
-    public ProductTag()
+    public ProductAttribute()
     {
     }
 
@@ -35,6 +38,14 @@ public class ProductTag
     }
 
     /**
+     * @return the {@link #name}
+     */
+    public String getName()
+    {
+        return this.name;
+    }
+
+    /**
      * @return the {@link #product}
      */
     public Product getProduct()
@@ -43,11 +54,11 @@ public class ProductTag
     }
 
     /**
-     * @return the {@link #tag}
+     * @return the {@link #value}
      */
-    public String getTag()
+    public String getValue()
     {
-        return this.tag;
+        return this.value;
     }
 
     /**
@@ -59,6 +70,14 @@ public class ProductTag
     }
 
     /**
+     * @param name the {@link #name} to set
+     */
+    public void setName(final String name)
+    {
+        this.name = name;
+    }
+
+    /**
      * @param product the {@link #product} to set
      */
     public void setProduct(final Product product)
@@ -67,11 +86,11 @@ public class ProductTag
     }
 
     /**
-     * @param tag the {@link #tag} to set
+     * @param value the {@link #value} to set
      */
-    public void setTag(final String tag)
+    public void setValue(final String value)
     {
-        this.tag = tag;
+        this.value = value;
     }
 
 }
