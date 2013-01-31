@@ -11,8 +11,12 @@
 		<module>mongo-spring-data</module>
 		<module>jpa-spring-data</module>
 	</modules>
-
+	<scm>
+		<connection>scm:git://github.com/eddiefullmetal/java-examples.git</connection>
+		<developerConnection>scm:git:${basedir}</developerConnection>
+	</scm>
 	<build>
+		<finalName>${project.name}-${project.version}-r${buildNumber}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -30,6 +34,24 @@
 				<configuration>
 					<show>private</show>
 					<nohelp>true</nohelp>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<shortRevisionLength>8</shortRevisionLength>
+					<doCheck>false</doCheck>
+					<doUpdate>false</doUpdate>
 				</configuration>
 			</plugin>
 		</plugins>
