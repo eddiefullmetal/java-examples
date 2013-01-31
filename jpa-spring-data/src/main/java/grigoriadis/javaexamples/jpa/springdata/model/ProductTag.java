@@ -74,4 +74,9 @@ public class ProductTag
         this.tag = tag;
     }
 
+    @Override
+    public String toString()
+    {
+        return this.tag;
+    }
 }
