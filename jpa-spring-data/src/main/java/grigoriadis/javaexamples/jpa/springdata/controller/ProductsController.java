@@ -3,8 +3,8 @@ package grigoriadis.javaexamples.jpa.springdata.controller;
 import grigoriadis.javaexamples.jpa.springdata.dto.ProductDto;
 import grigoriadis.javaexamples.jpa.springdata.model.Product;
 import grigoriadis.javaexamples.jpa.springdata.repository.ProductRepository;
+import ma.glasnost.orika.MapperFacade;
 
-import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class ProductsController
 {
     private static final Logger logger = LoggerFactory.getLogger(ProductsController.class);
 
-    private Mapper mapper;
+    private MapperFacade mapper;
 
     private ProductRepository productRepository;
 
@@ -42,7 +42,7 @@ public class ProductsController
     }
 
     @Autowired
-    public void setMapper(final Mapper mapper)
+    public void setMapper(final MapperFacade mapper)
     {
         this.mapper = mapper;
     }

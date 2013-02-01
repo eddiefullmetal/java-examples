@@ -1,9 +1,12 @@
 package grigoriadis.javaexamples.jpa.springdata.dto;
 
 import java.util.List;
+import java.util.Map;
 
 public class ProductDto
 {
+    private Map<String, String> attributes;
+
     private CategoryDto category;
 
     private String description;
@@ -20,6 +23,14 @@ public class ProductDto
 
     public ProductDto()
     {
+    }
+
+    /**
+     * @return the {@link #attributes}
+     */
+    public Map<String, String> getAttributes()
+    {
+        return this.attributes;
     }
 
     /**
@@ -76,6 +87,14 @@ public class ProductDto
     public List<String> getTags()
     {
         return this.tags;
+    }
+
+    /**
+     * @param attributes the {@link #attributes} to set
+     */
+    public void setAttributes(final Map<String, String> attributes)
+    {
+        this.attributes = attributes;
     }
 
     /**

@@ -31,7 +31,6 @@
 	<tx:annotation-driven/>
 	<jee:jndi-lookup id="entityManager" jndi-name="java:/jpaSpringDataPU" />
 	
-	<bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
-		<property name="mappingFiles" value="WEB-INF/mapping.xml"/>
+	<bean class="grigoriadis.javaexamples.jpa.springdata.dto.ConfigurableMapper">
 	</bean>
 </beans>
