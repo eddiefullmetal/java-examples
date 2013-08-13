@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <test name="All">
+    <packages>
+      <package name="grigoriadis.javaexamples.jpa.springdata.model"/>
+    </packages>
+  </test>
+</suite>

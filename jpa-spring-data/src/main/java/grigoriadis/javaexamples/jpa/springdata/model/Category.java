@@ -3,6 +3,8 @@ package grigoriadis.javaexamples.jpa.springdata.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,10 +17,11 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "categories", schema = "eshop")
+@Table(name = "categories")
 public class Category
 {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(length = 45, nullable = false)
@@ -44,6 +47,18 @@ public class Category
     {
         super();
         this.name = name;
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param name The {@link #name}
+     * @param parentCategory The {@link #parentCategory}
+     */
+    public Category(final String name, final Category parentCategory)
+    {
+        this.name = name;
+        this.parentCategory = parentCategory;
     }
 
     /**

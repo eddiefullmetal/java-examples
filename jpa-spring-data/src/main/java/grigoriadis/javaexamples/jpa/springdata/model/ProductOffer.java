@@ -5,13 +5,15 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "productOffers", schema = "eshop")
+@Table(name = "productOffers")
 public class ProductOffer
 {
     @Column(nullable = false)
@@ -21,6 +23,7 @@ public class ProductOffer
     private Date endDate;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
