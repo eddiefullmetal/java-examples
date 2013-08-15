@@ -1,5 +1,6 @@
 package grigoriadis.javaexamples.jpa.springdata.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -51,6 +52,18 @@ public class Product
      */
     public Product()
     {
+        this.attributes = new ArrayList<>();
+        this.images = new ArrayList<>();
+        this.offers = new ArrayList<>();
+        this.reviews = new ArrayList<>();
+        this.tags = new ArrayList<>();
+    }
+
+    public Product(final String name, final String description, final Category category)
+    {
+        this.category = category;
+        this.description = description;
+        this.name = name;
     }
 
     /**

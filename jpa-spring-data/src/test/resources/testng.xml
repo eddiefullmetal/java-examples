@@ -4,6 +4,7 @@
   <test name="All">
     <packages>
       <package name="grigoriadis.javaexamples.jpa.springdata.model"/>
+      <package name="grigoriadis.javaexamples.jpa.springdata.repository"/>
     </packages>
   </test>
 </suite>

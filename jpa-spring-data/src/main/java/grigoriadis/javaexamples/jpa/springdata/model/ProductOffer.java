@@ -37,6 +37,14 @@ public class ProductOffer
     {
     }
 
+    public ProductOffer(final Product product, final int discount, final Date startDate, final Date endDate)
+    {
+        this.discount = discount;
+        this.endDate = endDate;
+        this.product = product;
+        this.startDate = startDate;
+    }
+
     /**
      * @return the {@link #discount}
      */

@@ -35,6 +35,14 @@ public class ProductImage
     {
     }
 
+    public ProductImage(final Product product, final String largeImageUrl, final String normalImageUrl, final String thumbnailImageUrl)
+    {
+        this.largeImageUrl = largeImageUrl;
+        this.normalImageUrl = normalImageUrl;
+        this.product = product;
+        this.thumbnailImageUrl = thumbnailImageUrl;
+    }
+
     /**
      * @return the {@link #id}
      */
@@ -57,6 +65,14 @@ public class ProductImage
     public String getNormalImageUrl()
     {
         return this.normalImageUrl;
+    }
+
+    /**
+     * @return the {@link #product}
+     */
+    public Product getProduct()
+    {
+        return this.product;
     }
 
     /**
@@ -89,6 +105,14 @@ public class ProductImage
     public void setNormalImageUrl(final String normalImageUrl)
     {
         this.normalImageUrl = normalImageUrl;
+    }
+
+    /**
+     * @param product the {@link #product} to set
+     */
+    public void setProduct(final Product product)
+    {
+        this.product = product;
     }
 
     /**

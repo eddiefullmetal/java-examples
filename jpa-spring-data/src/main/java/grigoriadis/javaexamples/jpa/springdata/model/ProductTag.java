@@ -29,6 +29,12 @@ public class ProductTag
     {
     }
 
+    public ProductTag(final Product product, final String tag)
+    {
+        this.product = product;
+        this.tag = tag;
+    }
+
     /**
      * @return the {@link #id}
      */

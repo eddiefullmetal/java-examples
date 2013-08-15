@@ -32,6 +32,13 @@ public class ProductAttribute
     {
     }
 
+    public ProductAttribute(final Product product, final String name, final String value)
+    {
+        this.name = name;
+        this.product = product;
+        this.value = value;
+    }
+
     /**
      * @return the {@link #id}
      */
